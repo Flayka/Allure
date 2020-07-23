@@ -1,5 +1,9 @@
 package ru.netology.web.test;
 
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
@@ -20,8 +24,18 @@ public class OrderFormTest {
     public String newDate = getNewDate();
     public String phone = getPhone();
 
+    @BeforeAll
+    static void setUpAll() {
+        SelenideLogger.addListener("allure", new AllureSelenide());
+    }
+
+    @AfterAll
+    static void tearDownAll() {
+        SelenideLogger.removeListener("allure");
+    }
+
     @BeforeEach
-    void setUpAll() {
+    void setUpEach() {
         open("http://localhost:9999");
     }
 
@@ -126,7 +140,7 @@ public class OrderFormTest {
         $("[data-test-id='name'] .input__control").setValue(name);
         $("[data-test-id='phone'] .input__control").setValue(phone);
         $("[data-test-id='agreement']").click();
-        $(byText("Запланировать")).click();
+        $(byText("Заппланировать")).click();
         $(".icon").click();
         $("[data-test-id='success-notification']").shouldHave(text("Успешно!")).shouldNotBe(visible);
     }
