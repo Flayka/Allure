@@ -140,8 +140,8 @@ public class OrderFormTest {
         $("[data-test-id='name'] .input__control").setValue(name);
         $("[data-test-id='phone'] .input__control").setValue(phone);
         $("[data-test-id='agreement']").click();
-        $(byText("Заппланировать")).click();
-        $(".icon").click();
+        $(byText("Запланировать")).click();
+        $(".icon-button").click();
         $("[data-test-id='success-notification']").shouldHave(text("Успешно!")).shouldNotBe(visible);
     }
 }
